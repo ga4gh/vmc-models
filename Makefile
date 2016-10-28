@@ -6,9 +6,10 @@
 .PHONY: FORCE
 
 PATH:=${HOME}/opt/protoc-gen-doc:${PATH}
-PROTO_SRC:=$(sort $(wildcard proto/*.proto))
+#PROTO_SRC:=$(sort $(wildcard proto/*.proto))
+PROTO_SRC:=proto/vmc.proto
 
-all: $(foreach s,md html,doc/vmc.$s)
+docs: $(foreach s,md html,doc/vmc.$s)
 
 doc/vmc.md: ${PROTO_SRC}
 	protoc --doc_out=markdown,${@F}:${@D} $^

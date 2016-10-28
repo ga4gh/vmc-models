@@ -2,33 +2,27 @@
 <a name="top"/>
 
 ## Table of Contents
-* [Allele.proto](#Allele.proto)
+* [vmc.proto](#vmc.proto)
  * [Allele](#org.ga4gh.vmc.Allele)
-* [Diplotype.proto](#Diplotype.proto)
  * [Diplotype](#org.ga4gh.vmc.Diplotype)
-* [Genotype.proto](#Genotype.proto)
  * [Genotype](#org.ga4gh.vmc.Genotype)
-* [Haplotype.proto](#Haplotype.proto)
  * [Haplotype](#org.ga4gh.vmc.Haplotype)
-* [Interval.proto](#Interval.proto)
  * [Interval](#org.ga4gh.vmc.Interval)
-* [IntervalEdit.proto](#IntervalEdit.proto)
  * [IntervalEdit](#org.ga4gh.vmc.IntervalEdit)
-* [SequenceReference.proto](#SequenceReference.proto)
  * [SequenceReference](#org.ga4gh.vmc.SequenceReference)
  * [SequenceReference.Namespace](#org.ga4gh.vmc.SequenceReference.Namespace)
 * [Scalar Value Types](#scalar-value-types)
 
-<a name="Allele.proto"/>
+<a name="vmc.proto"/>
 <p align="right"><a href="#top">Top</a></p>
 
-## Allele.proto
+## vmc.proto
 
-Allele represents a single contiguous change
+
 
 <a name="org.ga4gh.vmc.Allele"/>
 ### Allele
-
+Allele represents a single contiguous change
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -37,41 +31,18 @@ Allele represents a single contiguous change
 | replacement | [string](#string) | required | replacement sequence; empty for deletion |
 
 
-
-
-
-
-<a name="Diplotype.proto"/>
-<p align="right"><a href="#top">Top</a></p>
-
-## Diplotype.proto
-
-Haplotype represents a collection of phased changes on a single
-reference.
-
 <a name="org.ga4gh.vmc.Diplotype"/>
 ### Diplotype
-
+Diplotype represents a collection of haplotypes.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | haplotypes | [Haplotype](#org.ga4gh.vmc.Haplotype) | repeated | phased changes; intervals should not overlap |
 
 
-
-
-
-
-<a name="Genotype.proto"/>
-<p align="right"><a href="#top">Top</a></p>
-
-## Genotype.proto
-
-Genotype represents multiple changes at a single location
-
 <a name="org.ga4gh.vmc.Genotype"/>
 ### Genotype
-
+Genotype represents multiple changes at a single location
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -80,21 +51,10 @@ Genotype represents multiple changes at a single location
 | replacements | [string](#string) | repeated | replacement sequences; empty for deletions |
 
 
-
-
-
-
-<a name="Haplotype.proto"/>
-<p align="right"><a href="#top">Top</a></p>
-
-## Haplotype.proto
-
-Haplotype represents a collection of phased changes on a single
-reference.
-
 <a name="org.ga4gh.vmc.Haplotype"/>
 ### Haplotype
-
+Haplotype represents a collection of phased changes on a single
+reference.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -102,29 +62,18 @@ reference.
 | interval_edits | [IntervalEdit](#org.ga4gh.vmc.IntervalEdit) | repeated | phased changes; intervals should not overlap |
 
 
+<a name="org.ga4gh.vmc.Interval"/>
+### Interval
+Represents the definite (i.e., not fuzzy) location of a sequence
+feature using an interval of interbase coordinates.
 
-
-
-
-<a name="Interval.proto"/>
-<p align="right"><a href="#top">Top</a></p>
-
-## Interval.proto
-
-Represents the definite (not fuzzy) location of a sequence
-feature using interbase coordinates.
-
-Interbase coordinates refer to the points between residues.  For a
-sequence of length n, 0 ≤ start ≤ end ≤ n, where 0 refers to the
+Interbase coordinates refer to the points *between* residues.  For
+a sequence of length n, 0 ≤ start ≤ end ≤ n, where 0 refers to the
 point before the start of the sequence, n refers to the point at
 the end of the sequence.  An interval in which start == end is a
 zero width point between two nucleotides.  See
 http://gmod.org/wiki/Introduction_to_Chado#Interbase_Coordinates
 for more information.
-
-<a name="org.ga4gh.vmc.Interval"/>
-### Interval
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -132,28 +81,9 @@ for more information.
 | end | [uint64](#uint64) | required | end position |
 
 
-
-
-
-
-<a name="IntervalEdit.proto"/>
-<p align="right"><a href="#top">Top</a></p>
-
-## IntervalEdit.proto
-
-Allele represents a single contiguous change
-
-Interbase coordinates refer to the points between residues.  For a
-sequence of length n, 0 ≤ start ≤ end ≤ n, where 0 refers to the
-point before the start of the sequence, n refers to the point at
-the end of the sequence.  An interval in which start == end is a
-zero width point between two nucleotides.  See
-http://gmod.org/wiki/Introduction_to_Chado#Interbase_Coordinates
-for more information.
-
 <a name="org.ga4gh.vmc.IntervalEdit"/>
 ### IntervalEdit
-
+IntervalEdit represents a located sequence change.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -161,21 +91,10 @@ for more information.
 | replacement | [string](#string) | required | replacement sequence; empty for deletion |
 
 
-
-
-
-
-<a name="SequenceReference.proto"/>
-<p align="right"><a href="#top">Top</a></p>
-
-## SequenceReference.proto
-
-Sequence reference represents a reference to a sequence in a
-database.
-
 <a name="org.ga4gh.vmc.SequenceReference"/>
 ### SequenceReference
-
+Sequence reference represents a reference to a sequence in a
+database.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
