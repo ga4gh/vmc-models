@@ -1,0 +1,21 @@
+/**
+   Represents the definite (not fuzzy) location of a sequence
+   feature using interbase coordinates.
+
+   Interbase coordinates refer to the points between residues.  For a
+   sequence of length n, 0 ≤ start ≤ end ≤ n, where 0 refers to the
+   point before the start of the sequence, n refers to the point at
+   the end of the sequence.  An interval in which start == end is a
+   zero width point between two nucleotides.  See
+   http://gmod.org/wiki/Introduction_to_Chado#Interbase_Coordinates
+   for more information.
+*/
+
+syntax = "proto2";
+
+package org.ga4gh.vmc;
+
+message Interval {
+  required uint64 start = 1;	/// start position
+  required uint64 end = 2;	/// end position
+}

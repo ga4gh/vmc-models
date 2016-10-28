@@ -1,0 +1,26 @@
+/**
+   Allele represents a single contiguous change 
+
+   Interbase coordinates refer to the points between residues.  For a
+   sequence of length n, 0 ≤ start ≤ end ≤ n, where 0 refers to the
+   point before the start of the sequence, n refers to the point at
+   the end of the sequence.  An interval in which start == end is a
+   zero width point between two nucleotides.  See
+   http://gmod.org/wiki/Introduction_to_Chado#Interbase_Coordinates
+   for more information.
+*/
+
+
+syntax = "proto2";
+
+package org.ga4gh.vmc;
+
+import "proto/Interval.proto";
+
+
+message IntervalEdit {
+  
+  required Interval location = 1;      /// location of sequence change
+  required string replacement = 2;     /// replacement sequence; empty for deletion
+
+}

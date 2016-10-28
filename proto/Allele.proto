@@ -1,0 +1,19 @@
+/**
+   Allele represents a single contiguous change 
+*/
+
+
+syntax = "proto2";
+
+package org.ga4gh.vmc;
+
+import "proto/SequenceReference.proto";
+import "proto/Interval.proto";
+
+message Allele {
+
+  required SequenceReference sequence = 1; /// sequence reference (namespace and accession)
+  required Interval location = 2;   /// location of sequence change
+  required string replacement = 3;  /// replacement sequence; empty for deletion
+
+}

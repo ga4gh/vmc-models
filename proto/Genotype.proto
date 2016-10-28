@@ -1,0 +1,19 @@
+/**
+   Genotype represents multiple changes at a single location
+*/
+
+
+syntax = "proto2";
+
+package org.ga4gh.vmc;
+
+import "proto/SequenceReference.proto";
+import "proto/Interval.proto";
+
+message Genotype {
+
+  required SequenceReference sequence = 1; /// sequence reference (namespace and accession)
+  required Interval location = 2;   /// location of sequence change
+  repeated string replacements = 3;  /// replacement sequences; empty for deletions
+
+}
