@@ -1,0 +1,56 @@
+message SequenceReference { /**
+  SequenceReference represents a named reference to a sequence in a
+  database.  For the purposes of VMC, it is essential that the mapping
+  from SequenceReference to sequence is many-to-one and immutable.
+
+  */
+
+  enum Namespace {
+    NCBI = 0;			/// versioned NCBI identifier, such as NM_000059.3 or NC_000001.10
+    ENSEMBL = 1;		/// versioned Ensembl identifier, such as ENST00000380152.7
+    LRG = 2;			/// Locus Reference Genome; http://www.lrg-sequence.org/
+
+    MD5 = 100;			/// MD5 of sequence
+    SHA1 = 101;			/// SHA1 of sequence
+    SHA256 = 102;		/// SHA256 of sequence
+    SHA512 = 103;		/// SHA512 of sequence
+    SEGUID = 110;		/// seguid of sequence
+    TD24 = 111;	 		/// 24-byte Truncated Digest of sequence
+  }
+
+  required Namespace namespace = 1;   /// name of recognized sequence reference
+  required string accession = 2;      /// replacement sequence; empty for deletion
+
+}
+
+
+message Interval {  /**
+  Represents the definite (i.e., not fuzzy) location of a sequence
+  feature using an interval of interbase coordinates.
+
+  Interbase coordinates refer to the points *between* residues.  For
+  a sequence of length n, 0 ≤ start ≤ end ≤ n, where 0 refers to the
+  point before the start of the sequence, n refers to the point at
+  the end of the sequence.  An interval in which start == end is a
+  zero width point between two nucleotides.  See
+  http://gmod.org/wiki/Introduction_to_Chado#Interbase_Coordinates
+  for more information.
+  */
+
+  required uint64 start = 1;	/// start position
+  required uint64 end = 2;	/// end position
+}
+
+
+message IntervalEdit { /**
+  IntervalEdit represents a located sequence change.
+
+  Consider renaming fields to match message name.  One possibility is
+  location ⇒ interval and replacement ⇒ edit, thus matching the
+  message name IntervalEdit.
+
+  */
+
+  required Interval location = 1;      /// location of sequence change
+  required string replacement = 2;     /// replacement sequence; empty for deletion
+}

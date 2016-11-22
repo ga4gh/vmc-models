@@ -6,8 +6,7 @@
 .PHONY: FORCE
 
 PATH:=${HOME}/opt/protoc-gen-doc:${PATH}
-#PROTO_SRC:=$(sort $(wildcard proto/*.proto))
-PROTO_SRC:=proto/vmc.proto
+PROTO_SRC:=$(foreach f,types vmc, proto/$f.proto)
 
 docs: $(foreach s,md html,doc/vmc.$s)
 

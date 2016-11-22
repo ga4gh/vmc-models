@@ -2,67 +2,33 @@
 <a name="top"/>
 
 ## Table of Contents
-* [vmc.proto](#vmc.proto)
- * [Allele](#org.ga4gh.vmc.Allele)
- * [Diplotype](#org.ga4gh.vmc.Diplotype)
- * [Genotype](#org.ga4gh.vmc.Genotype)
- * [Haplotype](#org.ga4gh.vmc.Haplotype)
- * [Interval](#org.ga4gh.vmc.Interval)
- * [IntervalEdit](#org.ga4gh.vmc.IntervalEdit)
- * [SequenceReference](#org.ga4gh.vmc.SequenceReference)
- * [SequenceReference.Namespace](#org.ga4gh.vmc.SequenceReference.Namespace)
+* [types.proto](#types.proto)
+ * [Interval](#Interval)
+ * [IntervalEdit](#IntervalEdit)
+ * [SequenceReference](#SequenceReference)
+ * [SequenceReference.Namespace](#SequenceReference.Namespace)
+* [Simple.proto](#Simple.proto)
+ * [Simple](#org.ga4gh.vmc.Simple)
+ * [Simple.Allele](#org.ga4gh.vmc.Simple.Allele)
+ * [Simple.Diplotype](#org.ga4gh.vmc.Simple.Diplotype)
+ * [Simple.Genotype](#org.ga4gh.vmc.Simple.Genotype)
+ * [Simple.Haplotype](#org.ga4gh.vmc.Simple.Haplotype)
+* [ByReference.proto](#ByReference.proto)
+ * [ByReference](#org.ga4gh.vmc.ByReference)
+ * [ByReference.Allele](#org.ga4gh.vmc.ByReference.Allele)
+ * [ByReference.Diplotype](#org.ga4gh.vmc.ByReference.Diplotype)
+ * [ByReference.Genotype](#org.ga4gh.vmc.ByReference.Genotype)
+ * [ByReference.Haplotype](#org.ga4gh.vmc.ByReference.Haplotype)
 * [Scalar Value Types](#scalar-value-types)
 
-<a name="vmc.proto"/>
+<a name="types.proto"/>
 <p align="right"><a href="#top">Top</a></p>
 
-## vmc.proto
+## types.proto
 
 
 
-<a name="org.ga4gh.vmc.Allele"/>
-### Allele
-Allele represents a single contiguous change
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| sequence | [SequenceReference](#org.ga4gh.vmc.SequenceReference) | required | sequence reference (namespace and accession) |
-| location | [Interval](#org.ga4gh.vmc.Interval) | required | location of sequence change |
-| replacement | [string](#string) | required | replacement sequence; empty for deletion |
-
-
-<a name="org.ga4gh.vmc.Diplotype"/>
-### Diplotype
-Diplotype represents a collection of haplotypes.
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| haplotypes | [Haplotype](#org.ga4gh.vmc.Haplotype) | repeated | phased changes; intervals should not overlap |
-
-
-<a name="org.ga4gh.vmc.Genotype"/>
-### Genotype
-Genotype represents multiple changes at a single location
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| sequence | [SequenceReference](#org.ga4gh.vmc.SequenceReference) | required | sequence reference (namespace and accession) |
-| location | [Interval](#org.ga4gh.vmc.Interval) | required | location of sequence change |
-| replacements | [string](#string) | repeated | replacement sequences; empty for deletions |
-
-
-<a name="org.ga4gh.vmc.Haplotype"/>
-### Haplotype
-Haplotype represents a collection of phased changes on a single
-reference.
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| sequence | [SequenceReference](#org.ga4gh.vmc.SequenceReference) | required | sequence reference (namespace and accession) |
-| interval_edits | [IntervalEdit](#org.ga4gh.vmc.IntervalEdit) | repeated | phased changes; intervals should not overlap |
-
-
-<a name="org.ga4gh.vmc.Interval"/>
+<a name="Interval"/>
 ### Interval
 Represents the definite (i.e., not fuzzy) location of a sequence
 feature using an interval of interbase coordinates.
@@ -81,29 +47,34 @@ for more information.
 | end | [uint64](#uint64) | required | end position |
 
 
-<a name="org.ga4gh.vmc.IntervalEdit"/>
+<a name="IntervalEdit"/>
 ### IntervalEdit
 IntervalEdit represents a located sequence change.
 
+Consider renaming fields to match message name.  One possibility is
+location ⇒ interval and replacement ⇒ edit, thus matching the
+message name IntervalEdit.
+
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| location | [Interval](#org.ga4gh.vmc.Interval) | required | location of sequence change |
+| location | [Interval](#Interval) | required | location of sequence change |
 | replacement | [string](#string) | required | replacement sequence; empty for deletion |
 
 
-<a name="org.ga4gh.vmc.SequenceReference"/>
+<a name="SequenceReference"/>
 ### SequenceReference
-Sequence reference represents a reference to a sequence in a
-database.
+SequenceReference represents a named reference to a sequence in a
+database.  For the purposes of VMC, it is essential that the mapping
+from SequenceReference to sequence is many-to-one and immutable.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| namespace | [SequenceReference.Namespace](#org.ga4gh.vmc.SequenceReference.Namespace) | required | name of recognized sequence reference (enum?) |
+| namespace | [SequenceReference.Namespace](#SequenceReference.Namespace) | required | name of recognized sequence reference |
 | accession | [string](#string) | required | replacement sequence; empty for deletion |
 
 
 
-<a name="org.ga4gh.vmc.SequenceReference.Namespace"/>
+<a name="SequenceReference.Namespace"/>
 ### SequenceReference.Namespace
 
 
@@ -118,6 +89,132 @@ database.
 | SHA512 | 103 | SHA512 of sequence |
 | SEGUID | 110 | seguid of sequence |
 | SEQHASH | 111 | seqhash of sequence |
+
+
+
+
+<a name="Simple.proto"/>
+<p align="right"><a href="#top">Top</a></p>
+
+## Simple.proto
+
+Probably the simplest option to consider.
+
+<a name="org.ga4gh.vmc.Simple"/>
+### Simple
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+
+
+<a name="org.ga4gh.vmc.Simple.Allele"/>
+### Simple.Allele
+Allele represents a single contiguous change
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| sequence_reference | [SequenceReference](#SequenceReference) | required | sequence reference (namespace and accession) |
+| location | [Interval](#Interval) | required | location of sequence change |
+| replacement | [string](#string) | required | replacement sequence; empty for deletion |
+
+
+<a name="org.ga4gh.vmc.Simple.Diplotype"/>
+### Simple.Diplotype
+Diplotype represents a collection of haplotypes.
+
+Haplotypes are probably defined on the same sequence, but the model
+does not require it and there may be future cases where it's useful
+to do otherwise.
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| haplotypes | [Simple.Haplotype](#org.ga4gh.vmc.Simple.Haplotype) | repeated | phased changes; intervals should not overlap |
+
+
+<a name="org.ga4gh.vmc.Simple.Genotype"/>
+### Simple.Genotype
+Genotype represents multiple changes at a single location
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| sequence_reference | [SequenceReference](#SequenceReference) | required | sequence reference (namespace and accession) |
+| location | [Interval](#Interval) | required | location of sequence change |
+| replacements | [string](#string) | repeated | replacement sequences; empty for deletions |
+
+
+<a name="org.ga4gh.vmc.Simple.Haplotype"/>
+### Simple.Haplotype
+Haplotype represents a collection of phased changes on a single
+reference.
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| sequence_reference | [SequenceReference](#SequenceReference) | required | sequence reference (namespace and accession) |
+| interval_edits | [IntervalEdit](#IntervalEdit) | repeated | phased changes; intervals should not overlap |
+
+
+
+
+
+
+<a name="ByReference.proto"/>
+<p align="right"><a href="#top">Top</a></p>
+
+## ByReference.proto
+
+
+
+<a name="org.ga4gh.vmc.ByReference"/>
+### ByReference
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+
+
+<a name="org.ga4gh.vmc.ByReference.Allele"/>
+### ByReference.Allele
+Allele represents a single contiguous change on a specific reference sequence
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| seqref | [SequenceReference](#SequenceReference) | required | sequence reference (namespace and accession) |
+| interval | [Interval](#Interval) | required | location of sequence change |
+| replacement | [string](#string) | required | replacement sequence |
+| cdid | [string](#string) | optional | computed digest identifier |
+
+
+<a name="org.ga4gh.vmc.ByReference.Diplotype"/>
+### ByReference.Diplotype
+Diplotype represents a collection of haplotypes.
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| haplotype_cdids | [string](#string) | repeated | list of haplotypes by id |
+
+
+<a name="org.ga4gh.vmc.ByReference.Genotype"/>
+### ByReference.Genotype
+Genotype represents multiple changes at a single location
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| alelle_cdids | [string](#string) | repeated | list of haplotypes by id |
+| cdid | [string](#string) | optional | computed digest identifier |
+
+
+<a name="org.ga4gh.vmc.ByReference.Haplotype"/>
+### ByReference.Haplotype
+Haplotype represents a collection of phased changes on a single
+reference.
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| alelle_cdids | [string](#string) | repeated | alleles in known phase |
+| cdid | [string](#string) | optional | computed digest identifier |
+
+
 
 
 

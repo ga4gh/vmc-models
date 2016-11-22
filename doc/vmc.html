@@ -173,54 +173,100 @@
     <div id="toc-container">
       <ul id="toc">
         <li>
-          <a href="#vmc.proto">vmc.proto</a>
+          <a href="#types.proto">types.proto</a>
           <ul>
             <li>
-              <a href="#org.ga4gh.vmc.Allele">
-                <span class="badge">M</span>
-                Allele
-              </a>
-            </li>
-            <li>
-              <a href="#org.ga4gh.vmc.Diplotype">
-                <span class="badge">M</span>
-                Diplotype
-              </a>
-            </li>
-            <li>
-              <a href="#org.ga4gh.vmc.Genotype">
-                <span class="badge">M</span>
-                Genotype
-              </a>
-            </li>
-            <li>
-              <a href="#org.ga4gh.vmc.Haplotype">
-                <span class="badge">M</span>
-                Haplotype
-              </a>
-            </li>
-            <li>
-              <a href="#org.ga4gh.vmc.Interval">
+              <a href="#Interval">
                 <span class="badge">M</span>
                 Interval
               </a>
             </li>
             <li>
-              <a href="#org.ga4gh.vmc.IntervalEdit">
+              <a href="#IntervalEdit">
                 <span class="badge">M</span>
                 IntervalEdit
               </a>
             </li>
             <li>
-              <a href="#org.ga4gh.vmc.SequenceReference">
+              <a href="#SequenceReference">
                 <span class="badge">M</span>
                 SequenceReference
               </a>
             </li>
             <li>
-              <a href="#org.ga4gh.vmc.SequenceReference.Namespace">
+              <a href="#SequenceReference.Namespace">
                 <span class="badge">E</span>
                 SequenceReference.Namespace
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#Simple.proto">Simple.proto</a>
+          <ul>
+            <li>
+              <a href="#org.ga4gh.vmc.Simple">
+                <span class="badge">M</span>
+                Simple
+              </a>
+            </li>
+            <li>
+              <a href="#org.ga4gh.vmc.Simple.Allele">
+                <span class="badge">M</span>
+                Simple.Allele
+              </a>
+            </li>
+            <li>
+              <a href="#org.ga4gh.vmc.Simple.Diplotype">
+                <span class="badge">M</span>
+                Simple.Diplotype
+              </a>
+            </li>
+            <li>
+              <a href="#org.ga4gh.vmc.Simple.Genotype">
+                <span class="badge">M</span>
+                Simple.Genotype
+              </a>
+            </li>
+            <li>
+              <a href="#org.ga4gh.vmc.Simple.Haplotype">
+                <span class="badge">M</span>
+                Simple.Haplotype
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#ByReference.proto">ByReference.proto</a>
+          <ul>
+            <li>
+              <a href="#org.ga4gh.vmc.ByReference">
+                <span class="badge">M</span>
+                ByReference
+              </a>
+            </li>
+            <li>
+              <a href="#org.ga4gh.vmc.ByReference.Allele">
+                <span class="badge">M</span>
+                ByReference.Allele
+              </a>
+            </li>
+            <li>
+              <a href="#org.ga4gh.vmc.ByReference.Diplotype">
+                <span class="badge">M</span>
+                ByReference.Diplotype
+              </a>
+            </li>
+            <li>
+              <a href="#org.ga4gh.vmc.ByReference.Genotype">
+                <span class="badge">M</span>
+                ByReference.Genotype
+              </a>
+            </li>
+            <li>
+              <a href="#org.ga4gh.vmc.ByReference.Haplotype">
+                <span class="badge">M</span>
+                ByReference.Haplotype
               </a>
             </li>
           </ul>
@@ -230,101 +276,10 @@
     </div>
 
     <div class="file-heading">
-      <h2 id="vmc.proto">vmc.proto</h2><a href="#title">Top</a>
+      <h2 id="types.proto">types.proto</h2><a href="#title">Top</a>
     </div>
     
-    <h3 id="org.ga4gh.vmc.Allele">Allele</h3>
-    <p>Allele represents a single contiguous change</p>
-    <table class="field-table">
-      <thead>
-        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>sequence</td>
-          <td><a href="#org.ga4gh.vmc.SequenceReference">SequenceReference</a></td>
-          <td>required</td>
-          <td><p>sequence reference (namespace and accession)</p></td>
-        </tr>
-        <tr>
-          <td>location</td>
-          <td><a href="#org.ga4gh.vmc.Interval">Interval</a></td>
-          <td>required</td>
-          <td><p>location of sequence change</p></td>
-        </tr>
-        <tr>
-          <td>replacement</td>
-          <td><a href="#string">string</a></td>
-          <td>required</td>
-          <td><p>replacement sequence; empty for deletion</p></td>
-        </tr>
-      </tbody>
-    </table>
-    <h3 id="org.ga4gh.vmc.Diplotype">Diplotype</h3>
-    <p>Diplotype represents a collection of haplotypes.</p>
-    <table class="field-table">
-      <thead>
-        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>haplotypes</td>
-          <td><a href="#org.ga4gh.vmc.Haplotype">Haplotype</a></td>
-          <td>repeated</td>
-          <td><p>phased changes; intervals should not overlap</p></td>
-        </tr>
-      </tbody>
-    </table>
-    <h3 id="org.ga4gh.vmc.Genotype">Genotype</h3>
-    <p>Genotype represents multiple changes at a single location</p>
-    <table class="field-table">
-      <thead>
-        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>sequence</td>
-          <td><a href="#org.ga4gh.vmc.SequenceReference">SequenceReference</a></td>
-          <td>required</td>
-          <td><p>sequence reference (namespace and accession)</p></td>
-        </tr>
-        <tr>
-          <td>location</td>
-          <td><a href="#org.ga4gh.vmc.Interval">Interval</a></td>
-          <td>required</td>
-          <td><p>location of sequence change</p></td>
-        </tr>
-        <tr>
-          <td>replacements</td>
-          <td><a href="#string">string</a></td>
-          <td>repeated</td>
-          <td><p>replacement sequences; empty for deletions</p></td>
-        </tr>
-      </tbody>
-    </table>
-    <h3 id="org.ga4gh.vmc.Haplotype">Haplotype</h3>
-    <p>Haplotype represents a collection of phased changes on a single
-reference.</p>
-    <table class="field-table">
-      <thead>
-        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>sequence</td>
-          <td><a href="#org.ga4gh.vmc.SequenceReference">SequenceReference</a></td>
-          <td>required</td>
-          <td><p>sequence reference (namespace and accession)</p></td>
-        </tr>
-        <tr>
-          <td>interval_edits</td>
-          <td><a href="#org.ga4gh.vmc.IntervalEdit">IntervalEdit</a></td>
-          <td>repeated</td>
-          <td><p>phased changes; intervals should not overlap</p></td>
-        </tr>
-      </tbody>
-    </table>
-    <h3 id="org.ga4gh.vmc.Interval">Interval</h3>
+    <h3 id="Interval">Interval</h3>
     <p>Represents the definite (i.e., not fuzzy) location of a sequence
 feature using an interval of interbase coordinates.</p><p>Interbase coordinates refer to the points *between* residues.  For
 a sequence of length n, 0 ≤ start ≤ end ≤ n, where 0 refers to the
@@ -352,8 +307,10 @@ for more information.</p>
         </tr>
       </tbody>
     </table>
-    <h3 id="org.ga4gh.vmc.IntervalEdit">IntervalEdit</h3>
-    <p>IntervalEdit represents a located sequence change.</p>
+    <h3 id="IntervalEdit">IntervalEdit</h3>
+    <p>IntervalEdit represents a located sequence change.</p><p>Consider renaming fields to match message name.  One possibility is
+location ⇒ interval and replacement ⇒ edit, thus matching the
+message name IntervalEdit.</p>
     <table class="field-table">
       <thead>
         <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
@@ -361,7 +318,7 @@ for more information.</p>
       <tbody>
         <tr>
           <td>location</td>
-          <td><a href="#org.ga4gh.vmc.Interval">Interval</a></td>
+          <td><a href="#Interval">Interval</a></td>
           <td>required</td>
           <td><p>location of sequence change</p></td>
         </tr>
@@ -373,9 +330,10 @@ for more information.</p>
         </tr>
       </tbody>
     </table>
-    <h3 id="org.ga4gh.vmc.SequenceReference">SequenceReference</h3>
-    <p>Sequence reference represents a reference to a sequence in a
-database.</p>
+    <h3 id="SequenceReference">SequenceReference</h3>
+    <p>SequenceReference represents a named reference to a sequence in a
+database.  For the purposes of VMC, it is essential that the mapping
+from SequenceReference to sequence is many-to-one and immutable.</p>
     <table class="field-table">
       <thead>
         <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
@@ -383,9 +341,9 @@ database.</p>
       <tbody>
         <tr>
           <td>namespace</td>
-          <td><a href="#org.ga4gh.vmc.SequenceReference.Namespace">SequenceReference.Namespace</a></td>
+          <td><a href="#SequenceReference.Namespace">SequenceReference.Namespace</a></td>
           <td>required</td>
-          <td><p>name of recognized sequence reference (enum?)</p></td>
+          <td><p>name of recognized sequence reference</p></td>
         </tr>
         <tr>
           <td>accession</td>
@@ -395,7 +353,7 @@ database.</p>
         </tr>
       </tbody>
     </table>
-    <h3 id="org.ga4gh.vmc.SequenceReference.Namespace">SequenceReference.Namespace</h3>
+    <h3 id="SequenceReference.Namespace">SequenceReference.Namespace</h3>
     <p></p>
     <table class="enum-table">
       <thead>
@@ -446,6 +404,216 @@ database.</p>
           <td>SEQHASH</td>
           <td>111</td>
           <td><p>seqhash of sequence</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="file-heading">
+      <h2 id="Simple.proto">Simple.proto</h2><a href="#title">Top</a>
+    </div>
+    <p>Probably the simplest option to consider.</p>
+    <h3 id="org.ga4gh.vmc.Simple">Simple</h3>
+    <p></p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <h3 id="org.ga4gh.vmc.Simple.Allele">Simple.Allele</h3>
+    <p>Allele represents a single contiguous change</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>sequence_reference</td>
+          <td><a href="#SequenceReference">SequenceReference</a></td>
+          <td>required</td>
+          <td><p>sequence reference (namespace and accession)</p></td>
+        </tr>
+        <tr>
+          <td>location</td>
+          <td><a href="#Interval">Interval</a></td>
+          <td>required</td>
+          <td><p>location of sequence change</p></td>
+        </tr>
+        <tr>
+          <td>replacement</td>
+          <td><a href="#string">string</a></td>
+          <td>required</td>
+          <td><p>replacement sequence; empty for deletion</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="org.ga4gh.vmc.Simple.Diplotype">Simple.Diplotype</h3>
+    <p>Diplotype represents a collection of haplotypes.</p><p>Haplotypes are probably defined on the same sequence, but the model
+does not require it and there may be future cases where it's useful
+to do otherwise.</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>haplotypes</td>
+          <td><a href="#org.ga4gh.vmc.Simple.Haplotype">Simple.Haplotype</a></td>
+          <td>repeated</td>
+          <td><p>phased changes; intervals should not overlap</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="org.ga4gh.vmc.Simple.Genotype">Simple.Genotype</h3>
+    <p>Genotype represents multiple changes at a single location</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>sequence_reference</td>
+          <td><a href="#SequenceReference">SequenceReference</a></td>
+          <td>required</td>
+          <td><p>sequence reference (namespace and accession)</p></td>
+        </tr>
+        <tr>
+          <td>location</td>
+          <td><a href="#Interval">Interval</a></td>
+          <td>required</td>
+          <td><p>location of sequence change</p></td>
+        </tr>
+        <tr>
+          <td>replacements</td>
+          <td><a href="#string">string</a></td>
+          <td>repeated</td>
+          <td><p>replacement sequences; empty for deletions</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="org.ga4gh.vmc.Simple.Haplotype">Simple.Haplotype</h3>
+    <p>Haplotype represents a collection of phased changes on a single
+reference.</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>sequence_reference</td>
+          <td><a href="#SequenceReference">SequenceReference</a></td>
+          <td>required</td>
+          <td><p>sequence reference (namespace and accession)</p></td>
+        </tr>
+        <tr>
+          <td>interval_edits</td>
+          <td><a href="#IntervalEdit">IntervalEdit</a></td>
+          <td>repeated</td>
+          <td><p>phased changes; intervals should not overlap</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="file-heading">
+      <h2 id="ByReference.proto">ByReference.proto</h2><a href="#title">Top</a>
+    </div>
+    
+    <h3 id="org.ga4gh.vmc.ByReference">ByReference</h3>
+    <p></p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <h3 id="org.ga4gh.vmc.ByReference.Allele">ByReference.Allele</h3>
+    <p>Allele represents a single contiguous change on a specific reference sequence</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>seqref</td>
+          <td><a href="#SequenceReference">SequenceReference</a></td>
+          <td>required</td>
+          <td><p>sequence reference (namespace and accession)</p></td>
+        </tr>
+        <tr>
+          <td>interval</td>
+          <td><a href="#Interval">Interval</a></td>
+          <td>required</td>
+          <td><p>location of sequence change</p></td>
+        </tr>
+        <tr>
+          <td>replacement</td>
+          <td><a href="#string">string</a></td>
+          <td>required</td>
+          <td><p>replacement sequence</p></td>
+        </tr>
+        <tr>
+          <td>cdid</td>
+          <td><a href="#string">string</a></td>
+          <td>optional</td>
+          <td><p>computed digest identifier</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="org.ga4gh.vmc.ByReference.Diplotype">ByReference.Diplotype</h3>
+    <p>Diplotype represents a collection of haplotypes.</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>haplotype_cdids</td>
+          <td><a href="#string">string</a></td>
+          <td>repeated</td>
+          <td><p>list of haplotypes by id</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="org.ga4gh.vmc.ByReference.Genotype">ByReference.Genotype</h3>
+    <p>Genotype represents multiple changes at a single location</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>alelle_cdids</td>
+          <td><a href="#string">string</a></td>
+          <td>repeated</td>
+          <td><p>list of haplotypes by id</p></td>
+        </tr>
+        <tr>
+          <td>cdid</td>
+          <td><a href="#string">string</a></td>
+          <td>optional</td>
+          <td><p>computed digest identifier</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="org.ga4gh.vmc.ByReference.Haplotype">ByReference.Haplotype</h3>
+    <p>Haplotype represents a collection of phased changes on a single
+reference.</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>alelle_cdids</td>
+          <td><a href="#string">string</a></td>
+          <td>repeated</td>
+          <td><p>alleles in known phase</p></td>
+        </tr>
+        <tr>
+          <td>cdid</td>
+          <td><a href="#string">string</a></td>
+          <td>optional</td>
+          <td><p>computed digest identifier</p></td>
         </tr>
       </tbody>
     </table>
