@@ -8,18 +8,19 @@
 PATH:=${HOME}/opt/protoc-gen-doc:${PATH}
 PROTO_SRC:=$(foreach f,types vmc, proto/$f.proto)
 
-docs: $(foreach s,md html,doc/vmc.$s)
+docs: $(foreach s,md html pdf,doc/vmc.$s)
 
 doc/vmc.md: ${PROTO_SRC}
 	protoc --doc_out=markdown,${@F}:${@D} $^
 doc/vmc.html: ${PROTO_SRC}
 	protoc --doc_out=html,${@F}:${@D} $^
 
-#protoc --doc_out=docbook,example.docbook:doc proto/*.proto
-#fop -xml doc/example.docbook \
-#	-xsl /usr/share/xml/docbook/stylesheet/docbook-xsl/fo/docbook.xsl \
-#	-param use.extensions 0 \
-#	-param fop1.extensions 1 \
-#	-param paper.type A4 \
-#	-param page.orientation landscape \
-#	-pdf doc/example.pdf
+doc/vmc.docbook: ${PROTO_SRC}
+	protoc --doc_out=docbook,${@F}:${@D} $^
+
+doc/vmc.pdf: doc/vmc.docbook
+	fop -xml $< \
+		-xsl /usr/share/xml/docbook/stylesheet/docbook-xsl/fo/docbook.xsl \
+		-param use.extensions 0 \
+		-param fop1.extensions 1 \
+		-pdf $@

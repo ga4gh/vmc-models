@@ -4,9 +4,6 @@ package org.ga4gh.vmc;
 
 import "proto/types.proto";
 
-
-message ByReference {
-
 message Allele { /**
   Allele represents a single contiguous change on a specific reference sequence
   */
@@ -43,7 +40,4 @@ message Diplotype { /**
   */
   repeated string haplotype_ids = 1;     /// list of haplotypes by id
   optional string id = 2;		   /// Genotype identifier
-}
-
-
 }
