@@ -1,4 +1,5 @@
 # Makefile for Python project
+
 .DELETE_ON_ERROR:
 .PHONY: FORCE
 .SUFFIXES:
