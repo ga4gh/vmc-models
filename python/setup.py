@@ -2,7 +2,7 @@
 
 from setuptools import setup, find_packages
 
-package_name = "vmc.models"
+package_name = "vmc"
 short_description = open("../doc/short-description.txt").read()
 long_description = open("README.rst").read()
 
@@ -14,7 +14,7 @@ setup(
     license = "Apache License 2.0 (http://www.apache.org/licenses/LICENSE-2.0)",
     long_description = long_description,
     name = package_name,
-    namespace_packages = [namespace_package],
+    # namespace_packages = [namespace_package],
     packages = find_packages(),
     zip_safe = True,
     use_scm_version = {"root": "..", "relative_to": __file__},
