@@ -6,24 +6,30 @@
 .PHONY: FORCE
 
 PATH:=${HOME}/opt/protoc-gen-doc:${PATH}
-PROTO_SRC:=$(foreach f,types vmc, proto/$f.proto)
+PROTO_SRC:=src/vmc.proto
 
 
-python: python/vmc/models/vmc_pb2.py
-python/vmc/models/vmc_pb2.py:: FORCE;
-python/vmc/models/vmc_pb2.py:: ${PROTO_SRC}
-	protoc --proto_path=${<D} --python_out=${@D} $^
+all: docs code packages
 
+
+# TODO: add other languages
+# See https://developers.google.com/protocol-buffers/docs/overview
+code: ${PROTO_SRC}
+	protoc --proto_path=${<D} --python_out=python/vmc/models $^
+
+
+packages:
+	make -C python bdist_wheel
 
 
 docs: $(foreach s,md html pdf,doc/vmc.$s)
 
 doc/vmc.md: ${PROTO_SRC}
-	protoc --proto_path=${<D} --doc_out=markdown,${@F}:${@D} $^
+	protoc --doc_out=markdown,${@F}:${@D} $^
 doc/vmc.html: ${PROTO_SRC}
-	protoc --proto_path=${<D} --doc_out=html,${@F}:${@D} $^
+	protoc --doc_out=html,${@F}:${@D} $^
 doc/vmc.docbook: ${PROTO_SRC}
-	protoc --proto_path=${<D} --doc_out=docbook,${@F}:${@D} $^
+	protoc --doc_out=docbook,${@F}:${@D} $^
 doc/vmc.pdf: doc/vmc.docbook
 	fop -xml $< \
 		-xsl /usr/share/xml/docbook/stylesheet/docbook-xsl/fo/docbook.xsl \

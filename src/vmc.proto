@@ -1,0 +1,81 @@
+syntax = 'proto3';
+
+package org.ga4gh.vmc;
+
+
+message SequenceReference { /**
+  SequenceReference represents a named reference to a sequence in a
+  database.  For the purposes of VMC, it is essential that the mapping
+  from SequenceReference to sequence is many-to-one and immutable.
+
+  */
+
+  string namespace = 1;   /// name of recognized sequence reference
+  string accession = 2;   /// replacement sequence; empty for deletion
+
+}
+
+message Interval {  /**
+  Represents the definite (i.e., not fuzzy) location of a sequence
+  feature using an interval of interbase coordinates.
+
+  Interbase coordinates refer to the points *between* residues.  For
+  a sequence of length n, 0 ≤ start ≤ end ≤ n, where 0 refers to the
+  point before the start of the sequence, n refers to the point at
+  the end of the sequence.  An interval in which start == end is a
+  zero width point between two nucleotides.  See
+  http://gmod.org/wiki/Introduction_to_Chado#Interbase_Coordinates
+  for more information.
+  */
+
+  uint64 start = 1;	/// start position
+  uint64 end = 2;	/// end position
+}
+
+
+message IntervalEdit { /**
+  IntervalEdit represents a located sequence change.
+
+  Consider renaming fields to match message name.  One possibility is
+  location ⇒ interval and replacement ⇒ edit, thus matching the
+  message name IntervalEdit.
+
+  */
+
+  Interval location = 1;      /// location of sequence change
+  string replacement = 2;     /// replacement sequence; empty for deletion
+}
+
+
+
+
+message Allele { /**
+  Allele represents a single contiguous change on a specific reference sequence
+  */
+
+  SequenceReference seqref = 1;   /// sequence reference (namespace and accession)
+  Interval interval = 2;          /// location of sequence change
+  string replacement = 3;         /// replacement sequence
+  string id = 4;		   /// Alelle identifier
+}
+
+
+message Genotype { /**
+  Genotype represents multiple changes at a single location
+  */
+
+  string allele_ids = 1; 	   /// list of haplotypes by id
+  string id = 2;		   /// Genotype identifier
+
+}
+
+
+message Haplotype { /**
+  Haplotype represents a collection of phased changes on a single
+  reference.
+  */
+
+  string allele_ids = 1; 	   /// list of haplotypes by id
+  string id = 2;		   /// Haplotype identifier
+
+}

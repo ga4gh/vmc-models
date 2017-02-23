@@ -173,47 +173,12 @@
     <div id="toc-container">
       <ul id="toc">
         <li>
-          <a href="#types.proto">types.proto</a>
-          <ul>
-            <li>
-              <a href="#Interval">
-                <span class="badge">M</span>
-                Interval
-              </a>
-            </li>
-            <li>
-              <a href="#IntervalEdit">
-                <span class="badge">M</span>
-                IntervalEdit
-              </a>
-            </li>
-            <li>
-              <a href="#SequenceReference">
-                <span class="badge">M</span>
-                SequenceReference
-              </a>
-            </li>
-            <li>
-              <a href="#SequenceReference.Namespace">
-                <span class="badge">E</span>
-                SequenceReference.Namespace
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li>
           <a href="#vmc.proto">vmc.proto</a>
           <ul>
             <li>
               <a href="#org.ga4gh.vmc.Allele">
                 <span class="badge">M</span>
                 Allele
-              </a>
-            </li>
-            <li>
-              <a href="#org.ga4gh.vmc.Diplotype">
-                <span class="badge">M</span>
-                Diplotype
               </a>
             </li>
             <li>
@@ -228,144 +193,30 @@
                 Haplotype
               </a>
             </li>
+            <li>
+              <a href="#org.ga4gh.vmc.Interval">
+                <span class="badge">M</span>
+                Interval
+              </a>
+            </li>
+            <li>
+              <a href="#org.ga4gh.vmc.IntervalEdit">
+                <span class="badge">M</span>
+                IntervalEdit
+              </a>
+            </li>
+            <li>
+              <a href="#org.ga4gh.vmc.SequenceReference">
+                <span class="badge">M</span>
+                SequenceReference
+              </a>
+            </li>
           </ul>
         </li>
         <li><a href="#scalar-value-types">Scalar Value Types</a></li>
       </ul>
     </div>
 
-    <div class="file-heading">
-      <h2 id="types.proto">types.proto</h2><a href="#title">Top</a>
-    </div>
-    
-    <h3 id="Interval">Interval</h3>
-    <p>Represents the definite (i.e., not fuzzy) location of a sequence
-feature using an interval of interbase coordinates.</p><p>Interbase coordinates refer to the points *between* residues.  For
-a sequence of length n, 0 ≤ start ≤ end ≤ n, where 0 refers to the
-point before the start of the sequence, n refers to the point at
-the end of the sequence.  An interval in which start == end is a
-zero width point between two nucleotides.  See
-http://gmod.org/wiki/Introduction_to_Chado#Interbase_Coordinates
-for more information.</p>
-    <table class="field-table">
-      <thead>
-        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>start</td>
-          <td><a href="#uint64">uint64</a></td>
-          <td>required</td>
-          <td><p>start position</p></td>
-        </tr>
-        <tr>
-          <td>end</td>
-          <td><a href="#uint64">uint64</a></td>
-          <td>required</td>
-          <td><p>end position</p></td>
-        </tr>
-      </tbody>
-    </table>
-    <h3 id="IntervalEdit">IntervalEdit</h3>
-    <p>IntervalEdit represents a located sequence change.</p><p>Consider renaming fields to match message name.  One possibility is
-location ⇒ interval and replacement ⇒ edit, thus matching the
-message name IntervalEdit.</p>
-    <table class="field-table">
-      <thead>
-        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>location</td>
-          <td><a href="#Interval">Interval</a></td>
-          <td>required</td>
-          <td><p>location of sequence change</p></td>
-        </tr>
-        <tr>
-          <td>replacement</td>
-          <td><a href="#string">string</a></td>
-          <td>required</td>
-          <td><p>replacement sequence; empty for deletion</p></td>
-        </tr>
-      </tbody>
-    </table>
-    <h3 id="SequenceReference">SequenceReference</h3>
-    <p>SequenceReference represents a named reference to a sequence in a
-database.  For the purposes of VMC, it is essential that the mapping
-from SequenceReference to sequence is many-to-one and immutable.</p>
-    <table class="field-table">
-      <thead>
-        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>namespace</td>
-          <td><a href="#SequenceReference.Namespace">SequenceReference.Namespace</a></td>
-          <td>required</td>
-          <td><p>name of recognized sequence reference</p></td>
-        </tr>
-        <tr>
-          <td>accession</td>
-          <td><a href="#string">string</a></td>
-          <td>required</td>
-          <td><p>replacement sequence; empty for deletion</p></td>
-        </tr>
-      </tbody>
-    </table>
-    <h3 id="SequenceReference.Namespace">SequenceReference.Namespace</h3>
-    <p></p>
-    <table class="enum-table">
-      <thead>
-        <tr><td>Name</td><td>Number</td><td>Description</td></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>NCBI</td>
-          <td>0</td>
-          <td><p>versioned NCBI identifier, such as NM_000059.3 or NC_000001.10</p></td>
-        </tr>
-        <tr>
-          <td>ENSEMBL</td>
-          <td>1</td>
-          <td><p>versioned Ensembl identifier, such as ENST00000380152.7</p></td>
-        </tr>
-        <tr>
-          <td>LRG</td>
-          <td>2</td>
-          <td><p>Locus Reference Genome; http://www.lrg-sequence.org/</p></td>
-        </tr>
-        <tr>
-          <td>MD5</td>
-          <td>100</td>
-          <td><p>MD5 of sequence</p></td>
-        </tr>
-        <tr>
-          <td>SHA1</td>
-          <td>101</td>
-          <td><p>SHA1 of sequence</p></td>
-        </tr>
-        <tr>
-          <td>SHA256</td>
-          <td>102</td>
-          <td><p>SHA256 of sequence</p></td>
-        </tr>
-        <tr>
-          <td>SHA512</td>
-          <td>103</td>
-          <td><p>SHA512 of sequence</p></td>
-        </tr>
-        <tr>
-          <td>SEGUID</td>
-          <td>110</td>
-          <td><p>seguid of sequence</p></td>
-        </tr>
-        <tr>
-          <td>TD24</td>
-          <td>111</td>
-          <td><p>24-byte Truncated Digest of sequence</p></td>
-        </tr>
-      </tbody>
-    </table>
     <div class="file-heading">
       <h2 id="vmc.proto">vmc.proto</h2><a href="#title">Top</a>
     </div>
@@ -379,20 +230,20 @@ from SequenceReference to sequence is many-to-one and immutable.</p>
       <tbody>
         <tr>
           <td>seqref</td>
-          <td><a href="#SequenceReference">SequenceReference</a></td>
-          <td>required</td>
+          <td><a href="#org.ga4gh.vmc.SequenceReference">SequenceReference</a></td>
+          <td>optional</td>
           <td><p>sequence reference (namespace and accession)</p></td>
         </tr>
         <tr>
           <td>interval</td>
-          <td><a href="#Interval">Interval</a></td>
-          <td>required</td>
+          <td><a href="#org.ga4gh.vmc.Interval">Interval</a></td>
+          <td>optional</td>
           <td><p>location of sequence change</p></td>
         </tr>
         <tr>
           <td>replacement</td>
           <td><a href="#string">string</a></td>
-          <td>required</td>
+          <td>optional</td>
           <td><p>replacement sequence</p></td>
         </tr>
         <tr>
@@ -400,27 +251,6 @@ from SequenceReference to sequence is many-to-one and immutable.</p>
           <td><a href="#string">string</a></td>
           <td>optional</td>
           <td><p>Alelle identifier</p></td>
-        </tr>
-      </tbody>
-    </table>
-    <h3 id="org.ga4gh.vmc.Diplotype">Diplotype</h3>
-    <p>Diplotype represents a collection of haplotypes.</p>
-    <table class="field-table">
-      <thead>
-        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>haplotype_ids</td>
-          <td><a href="#string">string</a></td>
-          <td>repeated</td>
-          <td><p>list of haplotypes by id</p></td>
-        </tr>
-        <tr>
-          <td>id</td>
-          <td><a href="#string">string</a></td>
-          <td>optional</td>
-          <td><p>Genotype identifier</p></td>
         </tr>
       </tbody>
     </table>
@@ -434,7 +264,7 @@ from SequenceReference to sequence is many-to-one and immutable.</p>
         <tr>
           <td>allele_ids</td>
           <td><a href="#string">string</a></td>
-          <td>repeated</td>
+          <td>optional</td>
           <td><p>list of haplotypes by id</p></td>
         </tr>
         <tr>
@@ -456,7 +286,7 @@ reference.</p>
         <tr>
           <td>allele_ids</td>
           <td><a href="#string">string</a></td>
-          <td>repeated</td>
+          <td>optional</td>
           <td><p>list of haplotypes by id</p></td>
         </tr>
         <tr>
@@ -464,6 +294,80 @@ reference.</p>
           <td><a href="#string">string</a></td>
           <td>optional</td>
           <td><p>Haplotype identifier</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="org.ga4gh.vmc.Interval">Interval</h3>
+    <p>Represents the definite (i.e., not fuzzy) location of a sequence
+feature using an interval of interbase coordinates.</p><p>Interbase coordinates refer to the points *between* residues.  For
+a sequence of length n, 0 ≤ start ≤ end ≤ n, where 0 refers to the
+point before the start of the sequence, n refers to the point at
+the end of the sequence.  An interval in which start == end is a
+zero width point between two nucleotides.  See
+http://gmod.org/wiki/Introduction_to_Chado#Interbase_Coordinates
+for more information.</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>start</td>
+          <td><a href="#uint64">uint64</a></td>
+          <td>optional</td>
+          <td><p>start position</p></td>
+        </tr>
+        <tr>
+          <td>end</td>
+          <td><a href="#uint64">uint64</a></td>
+          <td>optional</td>
+          <td><p>end position</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="org.ga4gh.vmc.IntervalEdit">IntervalEdit</h3>
+    <p>IntervalEdit represents a located sequence change.</p><p>Consider renaming fields to match message name.  One possibility is
+location ⇒ interval and replacement ⇒ edit, thus matching the
+message name IntervalEdit.</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>location</td>
+          <td><a href="#org.ga4gh.vmc.Interval">Interval</a></td>
+          <td>optional</td>
+          <td><p>location of sequence change</p></td>
+        </tr>
+        <tr>
+          <td>replacement</td>
+          <td><a href="#string">string</a></td>
+          <td>optional</td>
+          <td><p>replacement sequence; empty for deletion</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="org.ga4gh.vmc.SequenceReference">SequenceReference</h3>
+    <p>SequenceReference represents a named reference to a sequence in a
+database.  For the purposes of VMC, it is essential that the mapping
+from SequenceReference to sequence is many-to-one and immutable.</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>namespace</td>
+          <td><a href="#string">string</a></td>
+          <td>optional</td>
+          <td><p>name of recognized sequence reference</p></td>
+        </tr>
+        <tr>
+          <td>accession</td>
+          <td><a href="#string">string</a></td>
+          <td>optional</td>
+          <td><p>replacement sequence; empty for deletion</p></td>
         </tr>
       </tbody>
     </table>
