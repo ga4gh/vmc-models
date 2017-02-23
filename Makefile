@@ -6,7 +6,6 @@
 .PHONY: FORCE
 
 PATH:=${HOME}/opt/protoc-gen-doc:${PATH}
-PROTO_SRC:=src/vmc.proto
 
 
 all: docs code packages
@@ -14,8 +13,10 @@ all: docs code packages
 
 # TODO: add other languages
 # See https://developers.google.com/protocol-buffers/docs/overview
-code: ${PROTO_SRC}
-	protoc --proto_path=${<D} --python_out=python/vmc/models $^
+.PHONY: code
+code: .code-built
+.code-built: src/vmc.proto
+	protoc --proto_path=${<D} --python_out=python/vmc/models $^ | tee $@
 
 
 packages:
@@ -24,11 +25,11 @@ packages:
 
 docs: $(foreach s,md html pdf,doc/vmc.$s)
 
-doc/vmc.md: ${PROTO_SRC}
+doc/vmc.md: src/vmc.proto
 	protoc --doc_out=markdown,${@F}:${@D} $^
-doc/vmc.html: ${PROTO_SRC}
+doc/vmc.html: src/vmc.proto
 	protoc --doc_out=html,${@F}:${@D} $^
-doc/vmc.docbook: ${PROTO_SRC}
+doc/vmc.docbook: src/vmc.proto
 	protoc --doc_out=docbook,${@F}:${@D} $^
 doc/vmc.pdf: doc/vmc.docbook
 	fop -xml $< \
