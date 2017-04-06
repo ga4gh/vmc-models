@@ -3,16 +3,38 @@ syntax = 'proto3';
 package org.ga4gh.vmc;
 
 
-message SequenceReference { /**
-  SequenceReference represents a named reference to a sequence in a
-  database.  For the purposes of VMC, it is essential that the mapping
-  from SequenceReference to sequence is many-to-one and immutable.
+enum Completeness { /**
+Declares the completeness of haplotype or genotype definitions.
+		*/
+  UNKNOWN = 0;		/// Other alleles or haplotypes may exist
+  UNSPECIFIED = 1;	/// Other alleles or haplotypes exist but are not specified
+  COMPLETE = 2;		/// All alleles or haplotypes are included in this definition
+}
 
+message Identifier { /**
+  Identifier is a namespaced accession to an object.  May be
+  represented as a URI as namespace:accession.
   */
 
-  string namespace = 1;   /// name of recognized sequence reference
+  string namespace = 1;   /// name of the object authority or algorithm
   string accession = 2;   /// replacement sequence; empty for deletion
+}
 
+message Sequence { /**
+  A biological sequence, represented using 1-letter nucleic or amino
+  acids.
+		      
+  */
+  string id = 1;		/// Internal Sequence id
+  string sequence = 2;		/// sequence itself
+}
+
+message SequenceIdentifier { /*
+  Represents an association between a sequence (via sequence_id) and
+  an identifier.
+  */  
+  string sequence_id = 1;	/// Internal Sequence id 
+  Identifier identifier = 2;	/// identifier
 }
 
 message Interval {  /**
@@ -32,50 +54,66 @@ message Interval {  /**
   uint64 end = 2;	/// end position
 }
 
-
-message IntervalEdit { /**
-  IntervalEdit represents a located sequence change.
-
-  Consider renaming fields to match message name.  One possibility is
-  location ⇒ interval and replacement ⇒ edit, thus matching the
-  message name IntervalEdit.
-
+message Position { /**
   */
-
-  Interval location = 1;      /// location of sequence change
-  string replacement = 2;     /// replacement sequence; empty for deletion
+  /* use oneof? */
+  enum Type { INTERVAL = 0; }
+  Type type = 1;
+  Interval interval = 2;
 }
 
+message Location { /**
+  Represents a specific position on a specific sequence.
+  */
 
-
+  string id = 1;		/// Location identifier
+  string sequence_id = 2; 	/// sequence id
+  Position position = 3; 	/// position of sequence change on seqref
+}
 
 message Allele { /**
   Allele represents a single contiguous change on a specific reference sequence
   */
 
-  SequenceReference seqref = 1;   /// sequence reference (namespace and accession)
-  Interval interval = 2;          /// location of sequence change
-  string replacement = 3;         /// replacement sequence
-  string id = 4;		   /// Alelle identifier
+  string id = 1;		/// Alelle identifier
+  string location_id = 2;	/// Location of feature
+  string replacement = 3;	/// replacement sequence
 }
-
-
-message Genotype { /**
-  Genotype represents multiple changes at a single location
-  */
-
-  string allele_ids = 1; 	   /// list of haplotypes by id
-  string id = 2;		   /// Genotype identifier
-
-}
-
 
 message Haplotype { /**
   Haplotype represents a collection of phased changes on a single
   reference.
   */
 
-  string allele_ids = 1; 	   /// list of haplotypes by id
-  string id = 2;		   /// Haplotype identifier
+  string id = 1;	      /// Haplotype identifier
+  string sequence_id = 2;     /// Alleles are defined on this sequence
+  Completeness completeness = 3;  /// Completeness of Haplotype definition
+  repeated string allele_ids = 4; /// list of haplotypes by id
+
+}
+
+message Genotype { /**
+  Genotype represents multiple changes at a single location
+  */
+
+  string id = 1;		     /// Genotype identifier
+  repeated string haplotype_ids = 2; /// list of haplotypes by id
+  Completeness completeness = 3;  /// Completeness of Genotype definition
+}
+
+message Meta {/**
+	       */
+  string vmc_version = 1;
+}
+
+
+message VMCBundle { /**
+		     */
+  string id = 1;
+  Meta meta = 2;
+  repeated Allele alleles = 3;
+  repeated Haplotype haplotypes = 4;
+  repeated Genotype genotypes = 5;
+  map<Identifer, string> identifier_id_map = 6;
 
 }

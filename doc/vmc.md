@@ -6,9 +6,14 @@
  * [Allele](#org.ga4gh.vmc.Allele)
  * [Genotype](#org.ga4gh.vmc.Genotype)
  * [Haplotype](#org.ga4gh.vmc.Haplotype)
+ * [Identifier](#org.ga4gh.vmc.Identifier)
  * [Interval](#org.ga4gh.vmc.Interval)
- * [IntervalEdit](#org.ga4gh.vmc.IntervalEdit)
- * [SequenceReference](#org.ga4gh.vmc.SequenceReference)
+ * [Location](#org.ga4gh.vmc.Location)
+ * [Position](#org.ga4gh.vmc.Position)
+ * [Sequence](#org.ga4gh.vmc.Sequence)
+ * [SequenceIdentifier](#org.ga4gh.vmc.SequenceIdentifier)
+ * [Completeness](#org.ga4gh.vmc.Completeness)
+ * [Position.Type](#org.ga4gh.vmc.Position.Type)
 * [Scalar Value Types](#scalar-value-types)
 
 <a name="vmc.proto"/>
@@ -24,10 +29,9 @@ Allele represents a single contiguous change on a specific reference sequence
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| seqref | [SequenceReference](#org.ga4gh.vmc.SequenceReference) | optional | sequence reference (namespace and accession) |
-| interval | [Interval](#org.ga4gh.vmc.Interval) | optional | location of sequence change |
-| replacement | [string](#string) | optional | replacement sequence |
 | id | [string](#string) | optional | Alelle identifier |
+| location_id | [string](#string) | optional | Location of feature |
+| replacement | [string](#string) | optional | replacement sequence |
 
 
 <a name="org.ga4gh.vmc.Genotype"/>
@@ -36,8 +40,9 @@ Genotype represents multiple changes at a single location
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| allele_ids | [string](#string) | optional | list of haplotypes by id |
 | id | [string](#string) | optional | Genotype identifier |
+| haplotype_ids | [string](#string) | repeated | list of haplotypes by id |
+| completeness | [Completeness](#org.ga4gh.vmc.Completeness) | optional | Completeness of Genotype definition |
 
 
 <a name="org.ga4gh.vmc.Haplotype"/>
@@ -47,8 +52,21 @@ reference.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| allele_ids | [string](#string) | optional | list of haplotypes by id |
 | id | [string](#string) | optional | Haplotype identifier |
+| sequence_id | [string](#string) | optional | Alleles are defined on this sequence |
+| completeness | [Completeness](#org.ga4gh.vmc.Completeness) | optional | Completeness of Haplotype definition |
+| allele_ids | [string](#string) | repeated | list of haplotypes by id |
+
+
+<a name="org.ga4gh.vmc.Identifier"/>
+### Identifier
+Identifier is a namespaced accession to an object.  May be
+represented as a URI as namespace:accession.
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| namespace | [string](#string) | optional | name of the object authority or algorithm |
+| accession | [string](#string) | optional | replacement sequence; empty for deletion |
 
 
 <a name="org.ga4gh.vmc.Interval"/>
@@ -70,32 +88,66 @@ for more information.
 | end | [uint64](#uint64) | optional | end position |
 
 
-<a name="org.ga4gh.vmc.IntervalEdit"/>
-### IntervalEdit
-IntervalEdit represents a located sequence change.
-
-Consider renaming fields to match message name.  One possibility is
-location ⇒ interval and replacement ⇒ edit, thus matching the
-message name IntervalEdit.
+<a name="org.ga4gh.vmc.Location"/>
+### Location
+Represents a specific position on a specific sequence.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| location | [Interval](#org.ga4gh.vmc.Interval) | optional | location of sequence change |
-| replacement | [string](#string) | optional | replacement sequence; empty for deletion |
+| id | [string](#string) | optional | Location identifier |
+| sequence_id | [string](#string) | optional | sequence id |
+| position | [Position](#org.ga4gh.vmc.Position) | optional | position of sequence change on seqref |
 
 
-<a name="org.ga4gh.vmc.SequenceReference"/>
-### SequenceReference
-SequenceReference represents a named reference to a sequence in a
-database.  For the purposes of VMC, it is essential that the mapping
-from SequenceReference to sequence is many-to-one and immutable.
+<a name="org.ga4gh.vmc.Position"/>
+### Position
+
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| namespace | [string](#string) | optional | name of recognized sequence reference |
-| accession | [string](#string) | optional | replacement sequence; empty for deletion |
+| type | [Position.Type](#org.ga4gh.vmc.Position.Type) | optional |  |
+| interval | [Interval](#org.ga4gh.vmc.Interval) | optional |  |
 
 
+<a name="org.ga4gh.vmc.Sequence"/>
+### Sequence
+A biological sequence, represented using 1-letter nucleic or amino
+acids.
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [string](#string) | optional | Internal Sequence id |
+| sequence | [string](#string) | optional | sequence itself |
+
+
+<a name="org.ga4gh.vmc.SequenceIdentifier"/>
+### SequenceIdentifier
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| sequence_id | [string](#string) | optional | Internal Sequence id |
+| identifier | [Identifier](#org.ga4gh.vmc.Identifier) | optional | identifier |
+
+
+
+<a name="org.ga4gh.vmc.Completeness"/>
+### Completeness
+Declares the completeness of haplotype or genotype definitions.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| UNKNOWN | 0 | Other alleles or haplotypes may exist |
+| UNSPECIFIED | 1 | Other alleles or haplotypes exist but are not specified |
+| COMPLETE | 2 | All alleles or haplotypes are included in this definition |
+
+<a name="org.ga4gh.vmc.Position.Type"/>
+### Position.Type
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| INTERVAL | 0 |  |
 
 
 

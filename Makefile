@@ -1,6 +1,12 @@
 # You need protoc-gen-doc in PATH in order to generate docs
 # See https://github.com/estan/protoc-gen-doc
 
+# Frequent targets:
+# code -- make all derived code
+# docs -- make docs
+# packages -- make packages (from code)
+
+
 .SUFFIXES:
 .DELETE_ON_ERROR:
 .PHONY: FORCE
@@ -8,23 +14,28 @@
 PATH:=${HOME}/opt/protoc-gen-doc:${PATH}
 
 
-all: docs code packages
+all: code docs packages
 
 
-# TODO: add other languages
-# See https://developers.google.com/protocol-buffers/docs/overview
+# TODO: Add support for c++, go, java, javascript
 .PHONY: code
 code: .code-built
 .code-built: src/vmc.proto
-	protoc --proto_path=${<D} --python_out=python/vmc/models $^ | tee $@
+	protoc --version
+	protoc \
+		--proto_path=${<D} \
+		--python_out=python/vmc $^ \
+	| tee $@
 
 
-packages:
+.PHONY: packages python-package
+packages: python-package
+python-package:
 	make -C python bdist_wheel
 
 
+.PHONY: docs
 docs: $(foreach s,md html pdf,doc/vmc.$s)
-
 doc/vmc.md: src/vmc.proto
 	protoc --doc_out=markdown,${@F}:${@D} $^
 doc/vmc.html: src/vmc.proto
@@ -37,3 +48,25 @@ doc/vmc.pdf: doc/vmc.docbook
 		-param use.extensions 0 \
 		-param fop1.extensions 1 \
 		-pdf $@
+
+
+############################################################################
+#= CLEANUP
+
+#=> clean: remove temporary and backup files
+.PHONY: clean
+clean:
+	find . \( -name \*~ -o -name \*.bak \) -print0 | xargs -0r rm
+	make -C python $@
+
+#=> cleaner: remove files and directories that are easily rebuilt
+.PHONY: cleaner
+cleaner: clean
+	find . \( -name \*.orig -o -name \*.rej \) -print0 | xargs -0r rm
+	make -C python $@
+
+#=> cleanest: remove files and directories that require more time/network fetches to rebuild
+.PHONY: cleanest
+cleanest: cleaner
+	make -C python $@
+

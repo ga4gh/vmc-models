@@ -48,6 +48,7 @@ setup(
     # },
 
     install_requires = [
+        "attrs",
         "protobuf",
         "six",
     ],

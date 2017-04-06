@@ -194,21 +194,51 @@
               </a>
             </li>
             <li>
+              <a href="#org.ga4gh.vmc.Identifier">
+                <span class="badge">M</span>
+                Identifier
+              </a>
+            </li>
+            <li>
               <a href="#org.ga4gh.vmc.Interval">
                 <span class="badge">M</span>
                 Interval
               </a>
             </li>
             <li>
-              <a href="#org.ga4gh.vmc.IntervalEdit">
+              <a href="#org.ga4gh.vmc.Location">
                 <span class="badge">M</span>
-                IntervalEdit
+                Location
               </a>
             </li>
             <li>
-              <a href="#org.ga4gh.vmc.SequenceReference">
+              <a href="#org.ga4gh.vmc.Position">
                 <span class="badge">M</span>
-                SequenceReference
+                Position
+              </a>
+            </li>
+            <li>
+              <a href="#org.ga4gh.vmc.Sequence">
+                <span class="badge">M</span>
+                Sequence
+              </a>
+            </li>
+            <li>
+              <a href="#org.ga4gh.vmc.SequenceIdentifier">
+                <span class="badge">M</span>
+                SequenceIdentifier
+              </a>
+            </li>
+            <li>
+              <a href="#org.ga4gh.vmc.Completeness">
+                <span class="badge">E</span>
+                Completeness
+              </a>
+            </li>
+            <li>
+              <a href="#org.ga4gh.vmc.Position.Type">
+                <span class="badge">E</span>
+                Position.Type
               </a>
             </li>
           </ul>
@@ -229,28 +259,22 @@
       </thead>
       <tbody>
         <tr>
-          <td>seqref</td>
-          <td><a href="#org.ga4gh.vmc.SequenceReference">SequenceReference</a></td>
+          <td>id</td>
+          <td><a href="#string">string</a></td>
           <td>optional</td>
-          <td><p>sequence reference (namespace and accession)</p></td>
+          <td><p>Alelle identifier</p></td>
         </tr>
         <tr>
-          <td>interval</td>
-          <td><a href="#org.ga4gh.vmc.Interval">Interval</a></td>
+          <td>location_id</td>
+          <td><a href="#string">string</a></td>
           <td>optional</td>
-          <td><p>location of sequence change</p></td>
+          <td><p>Location of feature</p></td>
         </tr>
         <tr>
           <td>replacement</td>
           <td><a href="#string">string</a></td>
           <td>optional</td>
           <td><p>replacement sequence</p></td>
-        </tr>
-        <tr>
-          <td>id</td>
-          <td><a href="#string">string</a></td>
-          <td>optional</td>
-          <td><p>Alelle identifier</p></td>
         </tr>
       </tbody>
     </table>
@@ -262,16 +286,22 @@
       </thead>
       <tbody>
         <tr>
-          <td>allele_ids</td>
-          <td><a href="#string">string</a></td>
-          <td>optional</td>
-          <td><p>list of haplotypes by id</p></td>
-        </tr>
-        <tr>
           <td>id</td>
           <td><a href="#string">string</a></td>
           <td>optional</td>
           <td><p>Genotype identifier</p></td>
+        </tr>
+        <tr>
+          <td>haplotype_ids</td>
+          <td><a href="#string">string</a></td>
+          <td>repeated</td>
+          <td><p>list of haplotypes by id</p></td>
+        </tr>
+        <tr>
+          <td>completeness</td>
+          <td><a href="#org.ga4gh.vmc.Completeness">Completeness</a></td>
+          <td>optional</td>
+          <td><p>Completeness of Genotype definition</p></td>
         </tr>
       </tbody>
     </table>
@@ -284,16 +314,50 @@ reference.</p>
       </thead>
       <tbody>
         <tr>
-          <td>allele_ids</td>
-          <td><a href="#string">string</a></td>
-          <td>optional</td>
-          <td><p>list of haplotypes by id</p></td>
-        </tr>
-        <tr>
           <td>id</td>
           <td><a href="#string">string</a></td>
           <td>optional</td>
           <td><p>Haplotype identifier</p></td>
+        </tr>
+        <tr>
+          <td>sequence_id</td>
+          <td><a href="#string">string</a></td>
+          <td>optional</td>
+          <td><p>Alleles are defined on this sequence</p></td>
+        </tr>
+        <tr>
+          <td>completeness</td>
+          <td><a href="#org.ga4gh.vmc.Completeness">Completeness</a></td>
+          <td>optional</td>
+          <td><p>Completeness of Haplotype definition</p></td>
+        </tr>
+        <tr>
+          <td>allele_ids</td>
+          <td><a href="#string">string</a></td>
+          <td>repeated</td>
+          <td><p>list of haplotypes by id</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="org.ga4gh.vmc.Identifier">Identifier</h3>
+    <p>Identifier is a namespaced accession to an object.  May be
+represented as a URI as namespace:accession.</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>namespace</td>
+          <td><a href="#string">string</a></td>
+          <td>optional</td>
+          <td><p>name of the object authority or algorithm</p></td>
+        </tr>
+        <tr>
+          <td>accession</td>
+          <td><a href="#string">string</a></td>
+          <td>optional</td>
+          <td><p>replacement sequence; empty for deletion</p></td>
         </tr>
       </tbody>
     </table>
@@ -325,49 +389,132 @@ for more information.</p>
         </tr>
       </tbody>
     </table>
-    <h3 id="org.ga4gh.vmc.IntervalEdit">IntervalEdit</h3>
-    <p>IntervalEdit represents a located sequence change.</p><p>Consider renaming fields to match message name.  One possibility is
-location ⇒ interval and replacement ⇒ edit, thus matching the
-message name IntervalEdit.</p>
+    <h3 id="org.ga4gh.vmc.Location">Location</h3>
+    <p>Represents a specific position on a specific sequence.</p>
     <table class="field-table">
       <thead>
         <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
       </thead>
       <tbody>
         <tr>
-          <td>location</td>
-          <td><a href="#org.ga4gh.vmc.Interval">Interval</a></td>
-          <td>optional</td>
-          <td><p>location of sequence change</p></td>
-        </tr>
-        <tr>
-          <td>replacement</td>
+          <td>id</td>
           <td><a href="#string">string</a></td>
           <td>optional</td>
-          <td><p>replacement sequence; empty for deletion</p></td>
+          <td><p>Location identifier</p></td>
+        </tr>
+        <tr>
+          <td>sequence_id</td>
+          <td><a href="#string">string</a></td>
+          <td>optional</td>
+          <td><p>sequence id</p></td>
+        </tr>
+        <tr>
+          <td>position</td>
+          <td><a href="#org.ga4gh.vmc.Position">Position</a></td>
+          <td>optional</td>
+          <td><p>position of sequence change on seqref</p></td>
         </tr>
       </tbody>
     </table>
-    <h3 id="org.ga4gh.vmc.SequenceReference">SequenceReference</h3>
-    <p>SequenceReference represents a named reference to a sequence in a
-database.  For the purposes of VMC, it is essential that the mapping
-from SequenceReference to sequence is many-to-one and immutable.</p>
+    <h3 id="org.ga4gh.vmc.Position">Position</h3>
+    <p></p>
     <table class="field-table">
       <thead>
         <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
       </thead>
       <tbody>
         <tr>
-          <td>namespace</td>
-          <td><a href="#string">string</a></td>
+          <td>type</td>
+          <td><a href="#org.ga4gh.vmc.Position.Type">Position.Type</a></td>
           <td>optional</td>
-          <td><p>name of recognized sequence reference</p></td>
+          <td><p></p></td>
         </tr>
         <tr>
-          <td>accession</td>
+          <td>interval</td>
+          <td><a href="#org.ga4gh.vmc.Interval">Interval</a></td>
+          <td>optional</td>
+          <td><p></p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="org.ga4gh.vmc.Sequence">Sequence</h3>
+    <p>A biological sequence, represented using 1-letter nucleic or amino
+acids.</p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>id</td>
           <td><a href="#string">string</a></td>
           <td>optional</td>
-          <td><p>replacement sequence; empty for deletion</p></td>
+          <td><p>Internal Sequence id</p></td>
+        </tr>
+        <tr>
+          <td>sequence</td>
+          <td><a href="#string">string</a></td>
+          <td>optional</td>
+          <td><p>sequence itself</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="org.ga4gh.vmc.SequenceIdentifier">SequenceIdentifier</h3>
+    <p></p>
+    <table class="field-table">
+      <thead>
+        <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>sequence_id</td>
+          <td><a href="#string">string</a></td>
+          <td>optional</td>
+          <td><p>Internal Sequence id</p></td>
+        </tr>
+        <tr>
+          <td>identifier</td>
+          <td><a href="#org.ga4gh.vmc.Identifier">Identifier</a></td>
+          <td>optional</td>
+          <td><p>identifier</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="org.ga4gh.vmc.Completeness">Completeness</h3>
+    <p>Declares the completeness of haplotype or genotype definitions.</p>
+    <table class="enum-table">
+      <thead>
+        <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>UNKNOWN</td>
+          <td>0</td>
+          <td><p>Other alleles or haplotypes may exist</p></td>
+        </tr>
+        <tr>
+          <td>UNSPECIFIED</td>
+          <td>1</td>
+          <td><p>Other alleles or haplotypes exist but are not specified</p></td>
+        </tr>
+        <tr>
+          <td>COMPLETE</td>
+          <td>2</td>
+          <td><p>All alleles or haplotypes are included in this definition</p></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="org.ga4gh.vmc.Position.Type">Position.Type</h3>
+    <p></p>
+    <table class="enum-table">
+      <thead>
+        <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>INTERVAL</td>
+          <td>0</td>
+          <td><p></p></td>
         </tr>
       </tbody>
     </table>
